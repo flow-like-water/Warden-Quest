@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/types";
-import path from 'path';
-import fs from 'fs';
+import path from "path";
+import fs from "fs";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-contract-sizer";
@@ -21,7 +21,6 @@ require("dotenv").config();
   }
 );*/
 
-
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   solidity: {
@@ -31,10 +30,10 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200
+            runs: 200,
           },
-        }
-      }
+        },
+      },
     ],
   },
   contractSizer: {
@@ -45,34 +44,32 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/" + (process.env.ALCHEMY_API_KEY || ''),
-        blockNumber: 14753800
-      }
+        url: "https://rpc.v4.testnet.pulsechain.com",
+        blockNumber: 14753800,
+      },
     },
     mainnet: {
-      url: process.env.MAINNET_URI,
-      accounts: [process.env.MAINNET_PRIVATE_KEY || ''],
+      url: "https://rpc.v4.testnet.pulsechain.com",
+      accountsBalance: "10000000000000000000000000000",
     },
     fork: {
-      url: process.env.FORK_URI,
-      accounts: [process.env.MAINNET_PRIVATE_KEY || ''],
-    }
+      url: "https://rpc.v4.testnet.pulsechain.com",
+      accountsBalance: "10000000000000000000000000000",
+    },
+    mocha: {
+      url: "https://rpc.v4.testnet.pulsechain.com",
+      timeout: 0,
+    },
+    typechain: {
+      outDir: "typechain",
+      target: "ethers-v5",
+      url: "https://rpc.v4.testnet.pulsechain.com",
+    },
+    gasReporter: {
+      enabled: true,
+      url: "https://rpc.v4.testnet.pulsechain.com",
+    },
   },
-  mocha: {
-    timeout: 0
-  },
-  etherscan: {
-    // Your API key for Etherscan
-    // Obtain one at https://etherscan.io/
-    apiKey: process.env.ETHERSCAN_API_KEY || ''
-  },
-  typechain: {
-    outDir: "typechain",
-    target: "ethers-v5"
-  },
-  gasReporter: {
-    enabled: true
-  }
 };
 
 export default config;
